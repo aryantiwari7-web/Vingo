@@ -85,6 +85,14 @@ const signOut = async (req, res) => {
         return res.status(500).json({ message: `SignOut error ${error.message}` });
     }
 };
+
+const ForgotPassword = async (req,res) =>{
+    try {
+        res.status(200).json({message : "You are on forgot backend"});
+    } catch (error) {
+        console.log(error);
+    }
+}
 console.log("Auth End");
 
-module.exports = { signUP, signIn, signOut };
+module.exports = { signUP, signIn, signOut, ForgotPassword};

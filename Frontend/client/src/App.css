@@ -138,3 +138,95 @@ body {
   justify-content: center;
   margin-top: 12px;
 }
+
+.pass-link {
+  text-align: right;
+  margin-top: 8px;
+}
+
+.pass-link span {
+  color: #e64323;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.pass-link span:hover {
+  text-decoration: underline;
+}
+
+/* Page container */
+body {
+  background: #fff9f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Forgot password box (same as Main-box look) */
+.frt-page {
+  width: 350px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+/* Page heading */
+.frt-heading {
+  text-align: left;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ff4d2d;
+  margin-bottom: 12px;
+}
+
+/* Label */
+.frt-page h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 4px;
+}
+
+/* Input */
+.frt-page input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 13px;
+  box-sizing: border-box;
+  background-color: #fafafa;
+  transition: all 0.2s ease;
+}
+
+.frt-page input:focus {
+  border-color: #e64323;
+  box-shadow: 0 0 4px rgba(230, 67, 35, 0.2);
+  outline: none;
+  background-color: #fff;
+}
+
+/* Submit button */
+.smt_btn {
+  width: 100%;
+  background-color: #ff4d2d;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background 0.2s ease;
+}
+
+.smt_btn:hover {
+  background-color: #e64323;
+}
