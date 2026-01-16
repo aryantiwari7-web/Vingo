@@ -1,5 +1,5 @@
 const jwt=require("jsonwebtoken")
-
+console.log("tok called");
 const genToken = async (userId)=>{
     try {
         const token = await jwt.sign({userId},process.env.JWT_SECRET,{expiresIn:"7d"})
@@ -8,5 +8,5 @@ const genToken = async (userId)=>{
         console.log(error);
     }
 }
-
-export default genToken;
+console.log("Tok end");
+module.exports = genToken;
