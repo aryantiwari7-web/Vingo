@@ -1,11 +1,54 @@
 import React, { useState } from "react";
+import { serverUrl } from "../App";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+
 
 function ForgotPassword() {
-  const [state, setState] = useState(3);
+  const navigate = useNavigate();
+  const [state, setState] = useState(1);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [NewPassword, setNewPassword] = useState("");
   const [CnfPassword, setCnfPassword] = useState("");
+
+  const otpsnd =async ()=>{
+        try {
+          const result=await axios.post(`${serverUrl}/api/auth/sendOtp`,{
+            email
+          },{withCredentials:true});
+          setState(2);
+          console.log(result);
+        } catch (error) {
+          console.log(error);
+        }
+  }
+  const otpVry =async ()=>{
+        try {
+          const result=await axios.post(`${serverUrl}/api/auth/VeryOtp`,{
+            email,otp
+          },{withCredentials:true});
+          setState(3);
+          console.log(result);
+        } catch (error) {
+          console.log(error);
+        }
+  }
+  const SetPass =async ()=>{
+        try {
+          if(NewPassword !== CnfPassword){
+            console.log("Make noth the pass equal");
+          }
+          const result=await axios.post(`${serverUrl}/api/auth/ResetPass`,{
+            email,NewPassword
+          },{withCredentials:true});
+          navigate("/signin");
+
+          console.log(result);
+        } catch (error) {
+          console.log(error);
+        }
+  }
 
   return (
     <>
@@ -21,7 +64,7 @@ function ForgotPassword() {
             value={email}
           />
 
-          <button className="smt_btn">Submit</button>
+          <button className="smt_btn" onClick={otpsnd}>Submit</button>
         </div>
       )}
       {state === 2 && (
@@ -36,7 +79,7 @@ function ForgotPassword() {
             value={otp}
           />
 
-          <button className="smt_btn">Verify</button>
+          <button className="smt_btn" onClick={otpVry}>Verify</button>
         </div>
       )}
        {state === 3 && (
@@ -57,8 +100,9 @@ function ForgotPassword() {
             onChange={(e) => setCnfPassword(e.target.value)}
             value={CnfPassword}
           />
-
-          <button className="smt_btn">Submit</button>
+    
+          <button className="smt_btn"onClick={SetPass}>Submit</button>
+          
         </div>
       )}
     </>
