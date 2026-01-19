@@ -8,16 +8,13 @@ const signUP = async (req, res) => {
         console.log("Ya i am in");
         const { fullName, email, role, mobile, password } = req.body;
         let user = await User.findOne({ email });
-        console.log(fullName);
         if (user) {
             return res.status(400).json({ message: "User already exists" });
         }
-        console.log(mobile);
         
         if (mobile.length < 10) {
             return res.status(400).json({ message: "Enter valid mobile number" });
         }
-        console.log(password);
         
         if (password.length < 6) {
             return res.status(400).json({ message: "Password must be at least 6 characters" });
@@ -32,7 +29,6 @@ const signUP = async (req, res) => {
             mobile,
             password: hashPassword
         });
-        console.log("All Done");
 
         const token = genToken(user._id);
         res.cookie("token", token, {
@@ -48,35 +44,49 @@ const signUP = async (req, res) => {
         return res.status(500).json({ message: `SignUp error ${error.message}` });
     }
 };
-
 const signIn = async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log("backend Signin");
 
-        let user = await User.findOne({ email });
+        const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(401).json({ message: "Invalid email or password" });
         }
-
+        console.log("User in");
+        
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(401).json({ message: "Invalid password" });
+            return res.status(402).json({ message: "Invalid email or password" });
         }
+        
+        console.log("Pass in");
+        const token = await genToken(user._id); 
 
-        const token = genToken(user._id);
         res.cookie("token", token, {
+            httpOnly: true,
             secure: false,
-            sameSite: "strict",
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            httpOnly: true
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
-        return res.status(200).json({ message: "User logged in" });
+        console.log("backend Signin go");
+
+        return res.status(200).json({
+            message: "User logged in",
+            user: {
+                id: user._id,
+                email: user.email
+            }
+        });
 
     } catch (error) {
-        return res.status(500).json({ message: `SignIn error ${error.message}` });
+        return res.status(500).json({
+            message: `Signin error: ${error.message}`
+        });
     }
 };
+
 
 const signOut = async (req, res) => {
     try {

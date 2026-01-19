@@ -3,13 +3,14 @@ const dotenv = require('dotenv');
 dotenv.config();
 const cookieParser = require('cookie-parser');
 const { connection } = require('./config/db.js');
-const authRoutes = require('./routes/auth.routes.js');
+const app1 = require('./routes/auth.routes.js');
+const app2 = require('./routes/user.rought.js');
 const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS
+
 app.use(cors({
     origin: "http://localhost:3001",
     credentials: true
@@ -19,16 +20,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-// Routes
+
 console.log("backend");
-app.use("/api/auth",authRoutes);
+app.use("/api/auth",app1);
+app.use("/api/user",app2);
 
 app.get('/', (req, res) => {
     res.send("This is home page");
 });
 
 
-// DB + Server
+
 connection()
     .then(() => {
         app.listen(PORT, () => {

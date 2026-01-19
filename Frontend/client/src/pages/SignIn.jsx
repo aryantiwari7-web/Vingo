@@ -16,6 +16,13 @@ function SignIn() {
             email,
             password
           },{withCredentials:true})
+          console.log("Pass 1 point");
+          // try {
+          //   await axios.get(`${serverUrl}/api/user/current`,{withCredentials:true})
+          //   navigate('/');
+          // } catch (error) {
+          //   console.log(error);
+          // }
         } catch (error) {
           console.log(error);
         }
