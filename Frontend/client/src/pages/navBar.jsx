@@ -1,13 +1,23 @@
-import react from 'react';
+import react, { useContext } from 'react';
 import { FaCartArrowDown } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { serverUrl } from '../App';
+import { AuthContext } from '../hooks/Auth';
 
-const NavBar= ({user}) => {
+const NavBar= () => {
+    const {auth, setAuth} = useContext(AuthContext);
+    console.log(auth);
     const navigate = new useNavigate();
     const loginPage = async () => {
         await navigate('/signin');
+    }
+    const logoutPage = async () => {
+        await axios.get(`${serverUrl}/api/auth/signout`);
+        setAuth(null);
+        await navigate('/');
     }
     return (
         <div className='Nav-bar'>
@@ -15,7 +25,7 @@ const NavBar= ({user}) => {
             <div className='heading'>Foodify</div>
             <div className='location-nav'>
             < FaLocationDot/>
-            <spam>{user}</spam>     
+            <span>{`${auth?.fullName}`}</span>     
             </div>
             </div>
             <div className='search-login'>
@@ -25,10 +35,10 @@ const NavBar= ({user}) => {
             </div>
             <div className="account">
             <div className='Cart-logo'> <FaCartArrowDown/> </div>
-            { !user ? 
+            { !auth ? 
                     <button onClick={loginPage}>login</button>
                     :
-                    <button onClick={loginPage}>userfound</button>
+                    <button onClick={logoutPage}>logout</button>
             }
             </div>
             </div>

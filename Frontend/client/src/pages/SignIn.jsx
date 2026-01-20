@@ -1,28 +1,40 @@
 import axios from "axios";
-import React ,{useState} from "react";
+import React ,{useContext, useState} from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { serverUrl } from "../App";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../hooks/Auth.jsx";
 
 function SignIn() {
     const [pass, setPass] = useState(true); 
     const [password, setPassword] = useState(""); 
     const [email, setemail] = useState(""); 
+    const { auth, setAuth} = useContext(AuthContext);
+
       const navigate = useNavigate();
 
     const validate = async () =>{
         try {
+          console.log("Pass 1 point");
           await axios.post(`${serverUrl}/api/auth/signin`,{
             email,
             password
           },{withCredentials:true})
-          console.log("Pass 1 point");
-          // try {
-          //   await axios.get(`${serverUrl}/api/user/current`,{withCredentials:true})
-          //   navigate('/');
-          // } catch (error) {
-          //   console.log(error);
-          // }
+        
+          console.log("Pass 2 point");
+
+          try {
+            console.log("current call")
+            const user = await axios.get(`${serverUrl}/api/user/current`,{withCredentials:true})
+            console.log("current back")
+            //console.log("user",user.data);
+            setAuth(user.data);
+
+            navigate('/');
+            
+          } catch (error) {
+            console.log(error);
+          }
         } catch (error) {
           console.log(error);
         }

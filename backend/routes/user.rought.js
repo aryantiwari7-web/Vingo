@@ -1,10 +1,12 @@
 const express = require("express");
 
-const getCurrentUser = require("../controllers/userController");
-const isAuth = require("../middlewares/isAuth");
+const GetCurrentUser = require("../controllers/userController.js");
+const IsAuth = require("../middlewares/isAuth.js");
 
-const router = express.Router();
+const app2 = express.Router();
 
-router.get("/current", isAuth, getCurrentUser);
 
-module.exports = router;
+app2.get("/current",IsAuth, GetCurrentUser);
+
+
+module.exports = app2;

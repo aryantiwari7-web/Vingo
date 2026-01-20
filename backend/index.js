@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 
 app.use(cors({
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3000",
     credentials: true
 }));
 
@@ -22,12 +22,9 @@ app.use(cookieParser());
 
 
 console.log("backend");
-app.use("/api/auth",app1);
 app.use("/api/user",app2);
+app.use("/api/auth",app1);
 
-app.get('/', (req, res) => {
-    res.send("This is home page");
-});
 
 
 

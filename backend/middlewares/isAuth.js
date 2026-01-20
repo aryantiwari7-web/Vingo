@@ -1,25 +1,22 @@
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
-dotenv.config();
 
-const isAuth = async (req, res, next) => {
-    try {
-        const token = req.cookies.token;
-        if (!token) {
-            return res.status(400).json({ message: "token not found or user not login" });
-        }
-        const decode = jwt.verify(token, process.env.JWT_SECTRET);
-        if (!decode) {
-            return res.status(400).json({ message: "token not verify"});
-        }
-        console.log(decode);
-        
-        req.userID=decode.userID;
-        next();
+const isAuth = (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+    console.log("Token in isAuth:", token);
 
-    } catch (error) {
-        return res.status(500).json({ message: "isAuth Error"});
+    if (!token) {
+      return res.status(401).json({ message: "Not authenticated" });
     }
-}
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    req.userId = decoded.userId; // ✅ FIXED key name
+    next();
+  } catch (error) {
+    console.error("Auth error:", error.message);
+    return res.status(401).json({ message: "Invalid or expired token" });
+  }
+};
 
 module.exports = isAuth;

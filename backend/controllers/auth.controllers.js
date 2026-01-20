@@ -62,7 +62,7 @@ const signIn = async (req, res) => {
         
         console.log("Pass in");
         const token = await genToken(user._id); 
-
+        console.log(user._id);
         res.cookie("token", token, {
             httpOnly: true,
             secure: false,
