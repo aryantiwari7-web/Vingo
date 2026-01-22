@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-console.log("Uesr called");
+console.log("User called");
 const userSchema = new mongoose.Schema(
 {
     fullName: {

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { serverUrl } from '../App';
 import { AuthContext } from '../hooks/Auth';
+import { footer } from './footer.jsx';
 
 const NavBar= () => {
     const {auth, setAuth} = useContext(AuthContext);
@@ -42,6 +43,7 @@ const NavBar= () => {
             }
             </div>
             </div>
+            <footer/>
         </div>
     )
 };

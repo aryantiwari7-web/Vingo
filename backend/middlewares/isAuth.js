@@ -11,7 +11,7 @@ const isAuth = (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.userId = decoded.userId; // ✅ FIXED key name
+    req.userId = decoded.userId; 
     next();
   } catch (error) {
     console.error("Auth error:", error.message);

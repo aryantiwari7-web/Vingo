@@ -385,3 +385,255 @@ body {
 body {
   padding-top: 70px;
 }
+
+
+/* ===== Main Section ===== */
+.Main-div {
+  padding: 24px 28px;
+  background-color: #ffffff;
+}
+
+/* Heading */
+.Main-div h1 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* ===== Horizontal Menu Row ===== */
+.menu-row {
+  display: flex;
+  gap: 26px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar */
+.menu-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== Item Wrapper ===== */
+.Collection-div {
+  min-width: 110px;
+}
+
+/* Button Reset */
+.Collection-div button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+/* Hover effect */
+.Collection-div button:hover {
+  transform: scale(1.08);
+}
+
+/* ===== Food Image ===== */
+.Collection-div img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f2f2f2;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* ===== Food Name ===== */
+.Collection-div p {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ===== Active / Selected Item (Optional) ===== */
+.Collection-div button:focus img {
+  border-color: #fc8019;
+  box-shadow: 0 6px 16px rgba(252, 128, 25, 0.4);
+}
+
+/* ===== Mobile Optimization ===== */
+@media (max-width: 768px) {
+  .Collection-div img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .Collection-div p {
+    font-size: 13px;
+  }
+}
+
+/* AddItem.css */
+
+.Main-box {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Main-box h1 {
+  text-align: center;
+  color: #ff5200;
+  margin-bottom: 10px;
+}
+
+.pageDescription {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.inputItem {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inputItem h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.inputItem input {
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.inputItem input:focus {
+  border-color: #ff5200;
+  box-shadow: 0 0 0 2px rgba(255, 82, 0, 0.15);
+}
+
+.smt_btn {
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: #ff5200;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.smt_btn:hover {
+  background: #e64500;
+  transform: translateY(-1px);
+}
+
+.smt_btn:active {
+  transform: scale(0.98);
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .Main-box {
+    margin: 20px;
+    padding: 20px;
+  }
+}
+
+
+
+/* Main container */
+.ItemMainBox {
+  padding: 24px;
+  max-width: 1300px;
+  margin: auto;
+}
+
+/* Beautiful Heading */
+.categoryHeading {
+  font-size: 2.6rem;
+  font-weight: 800;
+  text-align: left;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  background: linear-gradient(90deg, #ff5200, #ff8c42);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+/* Horizontal scroll container */
+.allItem {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar */
+.allItem::-webkit-scrollbar {
+  display: none;
+}
+
+/* Item Card */
+.itemCard {
+  min-width: 220px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.itemCard:hover {
+  transform: translateY(-6px);
+}
+
+/* Image */
+.itemCard img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 16px 16px 0 0;
+}
+
+/* Info section */
+.itemInfo {
+  padding: 12px;
+}
+
+/* Item name */
+.itemInfo h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+/* Price */
+.price {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ff5200;
+}

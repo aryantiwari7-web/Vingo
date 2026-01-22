@@ -1,5 +1,5 @@
 const express = require("express");
-const { signUP, signIn, signOut, ForgotPassword, sendOtp, VerifyOtp, ResetPass} = require("../controllers/auth.controllers.js");
+const { signUP, signIn, signOut, ForgotPassword, sendOtp, VerifyOtp, ResetPass, item, addItem} = require("../controllers/auth.controllers.js");
 
 const app1 = express.Router();
 console.log("rought called");
@@ -10,6 +10,8 @@ app1.get("/signout", signOut);
 app1.post("/sendOtp", sendOtp);
 app1.post("/VeryOtp", VerifyOtp);
 app1.post("/ResetPass", ResetPass);
+app1.post("/addItem", addItem);
+app1.post("/item/:name", item);
 
 console.log("rought end");
 module.exports = app1;

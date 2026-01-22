@@ -1,7 +1,8 @@
 const User = require('../models/user.model.js');
 const bcrypt = require("bcryptjs");
 const  genToken  = require('../utils/token.js');
-const sendOtpMail = require('../utils/mail.js')
+const sendOtpMail = require('../utils/mail.js');
+const Item = require('../models/item.modle.js');
 console.log("Auth call");
 const signUP = async (req, res) => {
     try {
@@ -181,5 +182,50 @@ const ResetPass = async (req, res) => {
   }
 };
 
+const item = async (req,res) => {
+    const name=req.params.name;
+    console.log("Item backend in");
+    console.log(name);
+    const order=await Item.find({category:name});
+    console.log("Item backend out");
+    return res.status(200).json(order);
+}
 
-module.exports = { signUP, signIn, signOut, ForgotPassword, sendOtp, VerifyOtp, ResetPass};
+const addItem = async (req, res) => {
+    try {
+        const { name, price, category, image, description } = req.body;
+
+        if (!name || !price || !category) {
+            return res.status(400).json({ message: "All required fields must be filled" });
+        }
+
+        const existingItem = await Item.findOne({ name });
+
+        if (existingItem) {
+            return res.status(400).json({ message: "Item already exists" });
+        }
+
+        const newItem = await Item.create({
+            name,
+            price,
+            category,
+            image,
+            description
+        });
+
+        return res.status(201).json({
+            message: "Item added successfully",
+            item: newItem
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: "Add item failed",
+            error: error.message
+        });
+    }
+};
+
+
+module.exports = { signUP, signIn, signOut, ForgotPassword, sendOtp, VerifyOtp, ResetPass, item, addItem};
