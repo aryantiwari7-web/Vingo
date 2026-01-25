@@ -9,6 +9,7 @@ import GulabJamun from "./GulabJamun.jpg";
 import IceCream from "./IceCream.jpg";
 import Noodles from "./Noodles.jpg";
 import Waffle from "./Waffle.jpg";
+import Mainimage from "./mainimage.avif";
 
 const assets = {
   Biryani,
@@ -21,7 +22,8 @@ const assets = {
   GulabJamun,
   IceCream,
   Noodles,
-  Waffle
+  Waffle,
+  Mainimage
 };
 
 export default assets;

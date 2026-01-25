@@ -44,7 +44,10 @@ function SlidingMenuBar() {
           navigate(`/item/${name}`);  
     }
    return (
-    
+    <>
+    <div>
+        <img src={assets.Mainimage}/>
+    </div>
     <div className="Main-div">
       <h1>What's on your mind?</h1>
     
@@ -59,6 +62,7 @@ function SlidingMenuBar() {
         ))}
       </div>
     </div>
+    </>
   );
 }
 

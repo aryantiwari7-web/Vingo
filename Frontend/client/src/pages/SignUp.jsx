@@ -21,6 +21,7 @@ function SignUp() {
         fullName,email,password,mobile,role
       },{withCredentials:true});
       console.log(result);
+      navigate('/signin');
     } catch (error) {
       console.log(error);
     }

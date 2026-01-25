@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { serverUrl } from "../App";
 import { FaRupeeSign } from "react-icons/fa";
 
 const ItemBox = () => {
-  const { name } = useParams(); // get URL param
+  const { name } = useParams();
+  const navigate = useNavigate();
+
   const [allItem, setAllItem] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const openItm = (itemId) => {
+    navigate(`/showItem/${itemId}`);
+  };
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await axios.post(`${serverUrl}/api/auth/item/${name}`);
-        console.log(response);
-        setAllItem(response.data); // assuming response.data is the array
-        setLoading(false);
+        const response = await axios.post(
+          `${serverUrl}/api/auth/item/${name}`
+        );
+        setAllItem(response.data);
       } catch (error) {
         console.error("Error fetching items:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -30,24 +37,28 @@ const ItemBox = () => {
 
   return (
     <div className="ItemMainBox">
-  <h1 className="categoryHeading">{name}</h1>
+      <h1 className="categoryHeading">{name}</h1>
 
-  <div className="allItem">
-    {allItem.map((z, index) => (
-      <div className="itemCard" key={index}>
-        <img src={z.image} alt={z.name} />
+      <div className="allItem">
+        {allItem.map((z) => (
+          <div
+            key={z._id}
+            className="itemCard"
+            onClick={() => openItm(z._id)}
+          >
+            <img src={z.image} alt={z.name} />
 
-        <div className="itemInfo">
-          <h2>{z.name}</h2>
-          <p className="price">
-            <FaRupeeSign /> {z.price}
-          </p>
-        </div>
+            <div className="itemInfo">
+              <h2>{z.name}</h2>
+              <p className="price">
+                <FaRupeeSign /> {z.price}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-</div>
-  )
+    </div>
+  );
 };
 
 export default ItemBox;

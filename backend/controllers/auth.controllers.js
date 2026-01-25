@@ -12,14 +12,17 @@ const signUP = async (req, res) => {
         if (user) {
             return res.status(400).json({ message: "User already exists" });
         }
+        console.log("user in");
         
         if (mobile.length < 10) {
             return res.status(400).json({ message: "Enter valid mobile number" });
         }
+        console.log("mob in");
         
         if (password.length < 6) {
             return res.status(400).json({ message: "Password must be at least 6 characters" });
         }
+        console.log("pass in");
         
         const hashPassword = await bcrypt.hash(password, 10);
         
@@ -51,6 +54,7 @@ const signIn = async (req, res) => {
         console.log("backend Signin");
 
         const user = await User.findOne({ email });
+        console.log(user);
         if (!user) {
             return res.status(401).json({ message: "Invalid email or password" });
         }
@@ -191,6 +195,15 @@ const item = async (req,res) => {
     return res.status(200).json(order);
 }
 
+const showItem = async (req,res) => {
+    const itemId=req.params.itemId;
+    console.log("Item backend for id in");
+
+    const item=await Item.findOne({_id:itemId});
+    console.log("Item backend for id out");
+    return res.status(200).json(item);
+}
+
 const addItem = async (req, res) => {
     try {
         const { name, price, category, image, description } = req.body;
@@ -228,4 +241,4 @@ const addItem = async (req, res) => {
 };
 
 
-module.exports = { signUP, signIn, signOut, ForgotPassword, sendOtp, VerifyOtp, ResetPass, item, addItem};
+module.exports = { signUP, signIn, signOut, ForgotPassword, sendOtp, VerifyOtp, ResetPass, item, addItem, showItem};
