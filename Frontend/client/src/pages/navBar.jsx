@@ -11,19 +11,21 @@ const NavBar = () => {
     const { auth, setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    // ✅ Location state
-    const [location, setLocation] = useState("Your Location");
-
+    
     const loginPage = () => {
         navigate('/signin');
     };
-
+    const addItemPage = () => {
+        navigate('/addItem');
+    };
+    
     const logoutPage = async () => {
         await axios.get(`${serverUrl}/api/auth/signout`);
         setAuth(null);
         navigate('/');
     };
-
+    const [location, setLocation] = useState("Your Location");
+    
     const getCityFromCoords = async (lat, lng) => {
     try {
         const res = await fetch(
@@ -91,6 +93,9 @@ const NavBar = () => {
                     <div className='Cart-logo'>
                         <FaCartArrowDown />
                     </div>
+                    { auth && auth.role==="owner" &&
+                        <button onClick={addItemPage}>Add Item</button>
+                    }
 
                     {!auth ?
                         <button onClick={loginPage}>Login</button>

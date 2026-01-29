@@ -1,7 +1,8 @@
 import axios from "axios";
-import React ,{useState} from "react";
+import React ,{useContext, useState} from "react";
 import { serverUrl } from "../App";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../hooks/Auth";
 
 function AddItem() {
     const [name, setName] = useState(""); 
@@ -9,7 +10,9 @@ function AddItem() {
     const [price, setPrice] = useState(0); 
     const [image, setImage] = useState(""); 
     const [description, setDescription] = useState(""); 
-    
+    const [shopName, setShopName] = useState(""); 
+    const [shopCity, setShopCity] = useState(""); 
+    const {auth} = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -22,7 +25,9 @@ function AddItem() {
             category,
             price,
             image,
-            description
+            description,
+            shopName,
+            shopCity
           },{withCredentials:true})
         
           console.log("Pass 4 point");
@@ -54,6 +59,12 @@ function AddItem() {
 
       <h3>Description</h3>
       <input placeholder="Add description" type="text" onChange={(e)=> setDescription(e.target.value)} value={description}/>
+
+      <h3>Your Shop Name</h3>
+      <input value={auth.shopName} type="text" onChange={(e)=> setShopName(e.target.value)} readOnly disabled/>
+
+      <h3>Shop City</h3>
+      <input value={auth.shopCity} type="text" onChange={(e)=> setShopCity(e.target.value)} readOnly disabled/>
 
       
       <button className="smt_btn" onClick={validate}>Submit</button>

@@ -28,7 +28,6 @@ const ItemBox = () => {
         setLoading(false);
       }
     };
-
     fetchItems();
   }, [name]);
 

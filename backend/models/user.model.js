@@ -24,6 +24,14 @@ const userSchema = new mongoose.Schema(
         required: true,
         enum: ["user", "owner", "deliveryBoy"]
     },
+    shopName: {
+        type: String,
+        default:null
+    },
+    shopCity: {
+        type: String,
+        default:null
+    },
     resetOtp:{
         type:String
     },

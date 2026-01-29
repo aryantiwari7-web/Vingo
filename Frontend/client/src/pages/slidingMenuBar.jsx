@@ -37,6 +37,14 @@ function SlidingMenuBar() {
             name: "Biryani",
             image: assets.Biryani
         },
+        {
+            name: "Waffle",
+            image: assets.Waffle
+        },
+        {
+            name: "Paratha",
+            image: assets.Parathas
+        },
         
     ];
     const navigate = useNavigate();
@@ -44,10 +52,6 @@ function SlidingMenuBar() {
           navigate(`/item/${name}`);  
     }
    return (
-    <>
-    <div>
-        <img src={assets.Mainimage}/>
-    </div>
     <div className="Main-div">
       <h1>What's on your mind?</h1>
     
@@ -62,7 +66,6 @@ function SlidingMenuBar() {
         ))}
       </div>
     </div>
-    </>
   );
 }
 

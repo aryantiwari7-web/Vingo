@@ -15,10 +15,9 @@ function ShowItemBlock() {
                     `${serverUrl}/api/auth/item/showItem/${itemId}`
                 );
 
-                // 🔥 IMPORTANT FIX
                 if(response){
                 setItem(response.data);
-                console.log(item.name); // Now this will work
+                console.log(item.name); 
                 }
             } catch (error) {
                 console.error("Error fetching item:", error);

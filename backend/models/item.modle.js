@@ -23,6 +23,14 @@ const itemSchema = new mongoose.Schema(
         type: String,
         required: true
     },
+    shopName: {
+        type: String,
+        default: null
+    },
+    shopcity: {
+        type: String,
+        default: null
+    },
     
 },
 { timestamps: true }

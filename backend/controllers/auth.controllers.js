@@ -7,7 +7,7 @@ console.log("Auth call");
 const signUP = async (req, res) => {
     try {
         console.log("Ya i am in");
-        const { fullName, email, role, mobile, password } = req.body;
+        const { fullName, email, role, mobile, password,shopLocation, shopName } = req.body;
         let user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({ message: "User already exists" });
@@ -31,7 +31,9 @@ const signUP = async (req, res) => {
             email,
             role,
             mobile,
-            password: hashPassword
+            password: hashPassword,
+            shopName,
+            shopCity:shopLocation
         });
 
         const token = genToken(user._id);
@@ -182,7 +184,7 @@ const ResetPass = async (req, res) => {
     return res.status(200).json({ message: "password change successfully" });
 
   } catch (error) {
-    return res.status(500).json({ message: "Password Chnage failed", error });
+    return res.status(500).json({ message: "Password Change failed", error });
   }
 };
 
@@ -206,7 +208,7 @@ const showItem = async (req,res) => {
 
 const addItem = async (req, res) => {
     try {
-        const { name, price, category, image, description } = req.body;
+        const { name, price, category, image, description, shopName, shopCity } = req.body;
 
         if (!name || !price || !category) {
             return res.status(400).json({ message: "All required fields must be filled" });
@@ -223,7 +225,9 @@ const addItem = async (req, res) => {
             price,
             category,
             image,
-            description
+            description,
+            shopName,
+            shopCity
         });
 
         return res.status(201).json({

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import axios from 'axios'
 import { serverUrl } from "../App";
+import { AuthContext, AuthProvider } from "../hooks/Auth";
 
 function SignUp() {
   const [role, setRole] = useState("user");
@@ -12,15 +13,26 @@ function SignUp() {
   const [email, setemail] = useState("");
   const [mobile, setmobile] = useState("");
   const [password, setpassword] = useState("");
+  const [shopName, setShopName] = useState("");
+  const [shopLocation, setShopLocation] = useState("");
+  const {auth,setAuth}=useContext(AuthContext);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+  if (role !== "owner") {
+    setShopName(""); 
+  }
+}, [role]);
 
   const handleSignup = async () => {
     try {
       console.log("Entered"); 
       const result= await axios.post(`${serverUrl}/api/auth/signup`,{
-        fullName,email,password,mobile,role
+        fullName,email,password,mobile,role,shopName,shopLocation
       },{withCredentials:true});
       console.log(result);
+      setAuth({fullName,email,password,mobile,role,shopName,shopLocation});
       navigate('/signin');
     } catch (error) {
       console.log(error);
@@ -95,12 +107,27 @@ function SignUp() {
         </label>
       </div>
 
-      <button className="smt_btn" onClick={handleSignup}>Submit</button>
+      {role === "owner" && (
+  <>
+    <h3>Shop Name</h3>
+    <input
+      type="text"
+      placeholder="Enter Shop Name"
+      value={shopName}
+      onChange={(e) => setShopName(e.target.value)}
+    />
+    <h3>Shop Location</h3>
+    <input
+      type="text"
+      placeholder="Enter Shop Location"
+      value={shopLocation}
+      onChange={(e) => setShopLocation(e.target.value)}
+    />
+  </>
+)}
 
-      <button className="google_btn">
-        <FcGoogle />
-        <span>Signup with Google</span>
-      </button>
+
+      <button className="smt_btn" onClick={handleSignup}>Submit</button>
 
       <p
         style={{ cursor: "pointer", marginTop: "10px" }}
