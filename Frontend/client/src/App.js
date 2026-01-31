@@ -8,8 +8,8 @@ import { AuthProvider } from './hooks/Auth.jsx';
 import NavBar from './pages/navBar.jsx';
 import Home from './pages/Home.jsx';
 import ItemBox from './pages/itemBox.jsx';
-import MainLayout from './pages/MainLayout.jsx';
 import ShowItemBlock from './pages/showItemBlock.jsx';
+import SlidingMenuBar from './pages/slidingMenuBar.jsx';
 
 export const serverUrl = "http://localhost:5000";
 
@@ -18,6 +18,8 @@ function App() {
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/nav" element={<NavBar />} />
+        <Route path="/sld" element={<SlidingMenuBar />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgot-page" element={<ForgotPassword />} />

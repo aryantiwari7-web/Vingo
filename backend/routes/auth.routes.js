@@ -1,5 +1,5 @@
 const express = require("express");
-const { signUP, signIn, signOut, ForgotPassword, sendOtp, VerifyOtp, ResetPass, item, addItem,showItem} = require("../controllers/auth.controllers.js");
+const { signUP, signIn, signOut, ForgotPassword, sendOtp, VerifyOtp, ResetPass, item, addItem,showItem, allShop} = require("../controllers/auth.controllers.js");
 
 const app1 = express.Router();
 console.log("rought called");
@@ -13,6 +13,7 @@ app1.post("/ResetPass", ResetPass);
 app1.post("/addItem", addItem);
 app1.post("/item/:name", item);
 app1.post("/item/showItem/:itemId", showItem);
+app1.post("/allShop", allShop);
 
 console.log("rought end");
 module.exports = app1;

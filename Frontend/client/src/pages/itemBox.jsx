@@ -35,29 +35,44 @@ const ItemBox = () => {
   if (!allItem.length) return <h1>No items found</h1>;
 
   return (
-    <div className="ItemMainBox">
-      <h1 className="categoryHeading">{name}</h1>
+  <div className="w-full min-h-screen bg-gray-50 px-4 py-6">
+    {/* Category Heading */}
+    <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+      {name}
+    </h1>
 
-      <div className="allItem">
-        {allItem.map((z) => (
-          <div
-            key={z._id}
-            className="itemCard"
-            onClick={() => openItm(z._id)}
-          >
-            <img src={z.image} alt={z.name} />
+    {/* Items Grid */}
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      {allItem.map((z) => (
+        <div
+          key={z._id}
+          onClick={() => openItm(z._id)}
+          className="bg-white rounded-xl shadow-md hover:shadow-lg cursor-pointer transition overflow-hidden"
+        >
+          {/* Image */}
+          <img
+            src={z.image}
+            alt={z.name}
+            className="w-full h-32 object-cover"
+          />
 
-            <div className="itemInfo">
-              <h2>{z.name}</h2>
-              <p className="price">
-                <FaRupeeSign /> {z.price}
-              </p>
-            </div>
+          {/* Info */}
+          <div className="p-3">
+            <h2 className="text-sm font-semibold text-gray-800 truncate">
+              {z.name}
+            </h2>
+
+            <p className="text-orange-500 font-bold text-sm flex items-center gap-1 mt-1">
+              <FaRupeeSign className="text-xs" />
+              {z.price}
+            </p>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
-  );
+  </div>
+);
+
 };
 
 export default ItemBox;

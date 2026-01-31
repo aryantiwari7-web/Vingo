@@ -51,22 +51,40 @@ function SlidingMenuBar() {
     const handle = (name)=>{
           navigate(`/item/${name}`);  
     }
-   return (
-    <div className="Main-div">
-      <h1>What's on your mind?</h1>
-    
-      <div className="menu-row">
-        {menu.map((z) => (
-          <div className="Collection-div" key={z.name}>
-            <button onClick={() => handle(z.name)}>
-            <img src={z.image} alt={z.name} />
-            <p>{z.name}</p>
-            </button>
-          </div>
-        ))}
-      </div>
+return (
+  <div className="w-full bg-gray-100 pb-2">
+    <h1 className="text-xl font-bold text-gray-800 px-4 mb-4">
+      What's on your mind?
+    </h1>
+
+    <div className="flex gap-5 overflow-x-auto px-4 scrollbar-hide justify-around">
+      {menu.map((z) => (
+        <div
+          key={z.name}
+          className="flex-shrink-0 w-34 text-center"
+        >
+          <button
+            onClick={() => handle(z.name)}
+            className="flex flex-col items-center gap-2 focus:outline-none"
+          >
+            <div className="w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center hover:scale-125 transition">
+              <img
+                src={z.image}
+                alt={z.name}
+                className="w-14 h-14 object-contain"
+              />
+            </div>
+
+            <p className="text-sm font-medium text-gray-700">
+              {z.name}
+            </p>
+          </button>
+        </div>
+      ))}
     </div>
-  );
+  </div>
+);
+
 }
 
 export default SlidingMenuBar;

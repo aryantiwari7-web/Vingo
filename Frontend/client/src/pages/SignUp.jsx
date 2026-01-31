@@ -27,7 +27,6 @@ function SignUp() {
 
   const handleSignup = async () => {
     try {
-      console.log("Entered"); 
       const result= await axios.post(`${serverUrl}/api/auth/signup`,{
         fullName,email,password,mobile,role,shopName,shopLocation
       },{withCredentials:true});
@@ -40,103 +39,151 @@ function SignUp() {
   }
 
   return (
-    <div className="Main-box">
-      <h3>Name</h3>
-      <input placeholder="Enter Full Name" type="text" onChange={(e) => setfullName(e.target.value)} value={fullName}/>
+  <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+    <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-6 space-y-4">
 
-      <h3>Email</h3>
-      <input placeholder="Enter Email" type="email" onChange={(e) => setemail(e.target.value)} value={email}/>
+      <h2 className="text-3xl font-bold text-center text-orange-500">
+        Create Account
+      </h2>
 
-      <h3>Phone Number</h3>
-      <input placeholder="Enter Phone Number" type="text" onChange={(e) => setmobile(e.target.value)} value={mobile}/>
-
-      <h3>Password</h3>
-      <div className="password-wrapper">
-        <input
-          type={pass ? "password" : "text"}
-          placeholder="Enter Password"
-          onChange={(e) => setpassword(e.target.value)}
-          value={password}
-        />
-        {pass ? (
-          <FaRegEyeSlash
-            className="password-icon"
-            onClick={() => setPass(false)}
-          />
-        ) : (
-          <FaRegEye
-            className="password-icon"
-            onClick={() => setPass(true)}
-          />
-        )}
-      </div>
-
-      <h3>Role</h3>
+      {/* Full Name */}
       <div>
-        <label>
-          <input
-            type="radio"
-            name="role"
-            value="user"
-            checked={role === "user"}
-            onChange={(e) => setRole(e.target.value)}
-          />
-          User
+        <label className="w-full text-sm font-medium text-orange-400 mb-1">
+          Full Name
         </label>
-
-        <label>
-          <input
-            type="radio"
-            name="role"
-            value="owner"
-            checked={role === "owner"}
-            onChange={(e) => setRole(e.target.value)}
-          />
-          Owner
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            name="role"
-            value="delivery"
-            checked={role === "delivery"}
-            onChange={(e) => setRole(e.target.value)}
-          />
-          Delivery Boy
-        </label>
+        <input
+          type="text"
+          placeholder="Enter full name"
+          value={fullName}
+          onChange={(e) => setfullName(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 hover:border-orange-400"
+        />
       </div>
 
+      {/* Email */}
+      <div>
+        <label className="block text-sm font-medium text-orange-400 mb-1">
+          Email
+        </label>
+        <input
+          type="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => setemail(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400  focus:ring-orange-400 focus:border-orange-400 hover:border-orange-400"
+        />
+      </div>
+
+      {/* Mobile */}
+      <div>
+        <label className="block text-sm font-medium text-orange-400 mb-1">
+          Phone Number
+        </label>
+        <input
+          type="text"
+          placeholder="Enter phone number"
+          value={mobile}
+          onChange={(e) => setmobile(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400  focus:ring-orange-400 focus:border-orange-400 hover:border-orange-400"
+        />
+      </div>
+
+      {/* Password */}
+      <div>
+        <label className="block text-sm font-medium text-orange-400 mb-1">
+          Password
+        </label>
+        <div className="relative">
+          <input
+            type={pass ? "password" : "text"}
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setpassword(e.target.value)}
+            className="w-full px-3 py-2 border rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-orange-400  focus:ring-orange-400 focus:border-orange-400 hover:border-orange-400"
+          />
+          <span
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-orange-400 cursor-pointer hover:text-orange-600"
+            onClick={() => setPass(!pass)}
+          >
+            {pass ? <FaRegEyeSlash /> : <FaRegEye />}
+          </span>
+        </div>
+      </div>
+
+      {/* Role */}
+      <div>
+        <label className="block text-sm font-medium text-orange-400 mb-2">
+          Role
+        </label>
+        <div className="flex gap-4 text-sm text-orange-400">
+          {["user", "owner", "delivery"].map((r) => (
+            <label key={r} className="flex items-center gap-1 cursor-pointer ">
+              <input
+                type="radio"
+                name="role"
+                value={r}
+                checked={role === r}
+                onChange={(e) => setRole(e.target.value)}
+                className="accent-orange-600"
+              />
+              {r.charAt(0).toUpperCase() + r.slice(1)}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Owner fields */}
       {role === "owner" && (
-  <>
-    <h3>Shop Name</h3>
-    <input
-      type="text"
-      placeholder="Enter Shop Name"
-      value={shopName}
-      onChange={(e) => setShopName(e.target.value)}
-    />
-    <h3>Shop Location</h3>
-    <input
-      type="text"
-      placeholder="Enter Shop Location"
-      value={shopLocation}
-      onChange={(e) => setShopLocation(e.target.value)}
-    />
-  </>
-)}
+        <>
+          <div>
+            <label className="block text-sm font-medium text-orange-400 mb-1">
+              Shop Name
+            </label>
+            <input
+              type="text"
+              placeholder="Enter shop name"
+              value={shopName}
+              onChange={(e) => setShopName(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400  focus:ring-orange-400 focus:border-orange-400 hover:border-orange-400"
+            />
+          </div>
 
+          <div>
+            <label className="block text-sm font-medium text-orange-400 mb-1">
+              Shop Location
+            </label>
+            <input
+              type="text"
+              placeholder="Enter shop location"
+              value={shopLocation}
+              onChange={(e) => setShopLocation(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400  focus:ring-orange-400 focus:border-orange-400 hover:border-orange-400"
+            />
+          </div>
+        </>
+      )}
 
-      <button className="smt_btn" onClick={handleSignup}>Submit</button>
-
-      <p
-        style={{ cursor: "pointer", marginTop: "10px" }}
-        onClick={() => navigate("/signin")}
+      {/* Submit */}
+      <button
+        onClick={handleSignup}
+        className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg font-semibold transition"
       >
-        Already have an account? <span style={{color:"#e64323", cursor:'pointer'}}>Sign In</span>
+        Sign Up
+      </button>
+
+      {/* Redirect */}
+      <p className="text-center text-sm text-gray-600">
+        Already have an account?{" "}
+        <span
+          onClick={() => navigate("/signin")}
+          className="text-orange-500 cursor-pointer font-medium hover:text-orange-600"
+        >
+          Sign In
+        </span>
       </p>
     </div>
-  );
+  </div>
+);
 }
 
 export default SignUp;
