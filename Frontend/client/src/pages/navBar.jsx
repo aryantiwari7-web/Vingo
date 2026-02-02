@@ -18,6 +18,9 @@ const NavBar = () => {
     const addItemPage = () => {
         navigate('/addItem');
     };
+    const cartPage = () => {
+        navigate('/cartPage');
+    };
 
     const logoutPage = async () => {
         await axios.get(`${serverUrl}/api/auth/signout`);
@@ -103,7 +106,7 @@ const NavBar = () => {
                 
                 <div className="flex items-center gap-4">
                     <div className="relative cursor-pointer text-gray-700 hover:text-orange-500 transition">
-                        <FaCartArrowDown className="text-xl" />
+                        <FaCartArrowDown className="text-xl" onClick={cartPage}/>
                     </div>
 
                     {auth && auth.role === "owner" && (

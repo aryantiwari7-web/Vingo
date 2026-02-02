@@ -53,8 +53,8 @@ function SlidingMenuBar() {
     }
 return (
   <div className="w-full bg-gray-100 pb-2">
-    <h1 className="text-xl font-bold text-gray-800 px-4 mb-4">
-      What's on your mind?
+    <h1 className="text-4xl font-semibold text-center mb-12">
+      Explore our menu
     </h1>
 
     <div className="flex gap-5 overflow-x-auto px-4 scrollbar-hide justify-around">

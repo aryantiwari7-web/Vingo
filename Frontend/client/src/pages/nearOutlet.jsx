@@ -29,16 +29,16 @@ function NearOutlet() {
  return (
   <div className="w-full bg-gray-50 py-6">
     {/* Section Title */}
-    <h2 className="text-xl font-bold text-gray-800 px-4 mb-5">
-      Top restaurant and outlet chains
+    <h2 className="text-4xl font-semibold text-center text-gray-800 px-4 ">
+      Top <span className="text-orange-500">Restaurant</span> and outlet chains
     </h2>
 
     {/* Cards Grid */}
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 mt-10">
       {shops.map((shop, index) => (
         <div
           key={index}
-          className="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden cursor-pointer"
+          className="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden cursor-pointer hover:scale-105"
         >
           {/* Image */}
           <img

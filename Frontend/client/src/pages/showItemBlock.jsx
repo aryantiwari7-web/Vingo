@@ -1,89 +1,91 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { serverUrl } from '../App';
-import axios from 'axios';
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { serverUrl } from "../App";
+import { CartContext } from "../hooks/Cart";
+import { AuthContext } from "../hooks/Auth";
 
 function ShowItemBlock() {
-    const { itemId } = useParams();
-    const [item, setItem] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const { itemId } = useParams();
 
-    useEffect(() => {
-        const fetchItem = async () => {
-            try {
-                const response = await axios.post(
-                    `${serverUrl}/api/auth/item/showItem/${itemId}`
-                );
+  const { auth } = useContext(AuthContext);
+  const { cart, setCart } = useContext(CartContext);
 
-                if(response){
-                setItem(response.data);
-                console.log(item.name); 
-                }
-            } catch (error) {
-                console.error("Error fetching item:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+  const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-        fetchItem();
-    }, [itemId]);
+  // ✅ Add to cart function
+  const addCartI = (item) => {
+    if (!auth) {
+      navigate("/signin");
+      return;
+    }
+    console.log(item);
+    setCart([...cart,item]); // add item to cart
+  };
 
-    if (loading) return <h1 className="item-loading">Loading...</h1>;
-    if (!item) return <h1 className="item-not-found">No item found</h1>;
+  // ✅ Fetch item
+  useEffect(() => {
+    const fetchItem = async () => {
+      try {
+        const response = await axios.post(
+          `${serverUrl}/api/auth/item/showItem/${itemId}`
+        );
+        setItem(response.data);
+      } catch (error) {
+        console.error("Error fetching item:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    return (
-  <div className="w-full min-h-screen bg-gray-50 px-4 py-6">
-    {/* Page Title */}
-    <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-      Our Menu
-    </h1>
+    fetchItem();
+  }, [itemId]);
 
-    {/* Item Card */}
-    <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-md overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-2">
+  if (loading) return <h1>Loading...</h1>;
+  if (!item) return <h1>No item found</h1>;
 
-        {/* Image */}
-        <div className="w-full h-64 md:h-full">
+  return (
+    <div className="w-full min-h-screen bg-gray-50 px-4 py-6">
+      <h1 className="text-2xl font-bold text-center mb-6">Our Menu</h1>
+
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-md overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+
+          {/* Image */}
           <img
             src={item.image}
             alt={item.name}
-            className="w-full h-full object-cover"
+            className="w-full h-64 md:h-full object-cover"
           />
-        </div>
 
-        {/* Content */}
-        <div className="p-6 flex flex-col justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-800 mb-1">
-              {item.name}
-            </h2>
+          {/* Details */}
+          <div className="p-6 flex flex-col justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold">{item.name}</h2>
+              <p className="text-orange-500">{item.category}</p>
+              <p className="text-gray-600 mt-2">{item.description}</p>
+            </div>
 
-            <p className="text-sm text-orange-500 font-medium mb-3">
-              {item.category}
-            </p>
+            <div className="mt-6 flex justify-between items-center">
+              <span className="text-xl font-bold">₹{item.price}</span>
 
-            <p className="text-gray-600 text-sm leading-relaxed">
-              {item.description}
-            </p>
-          </div>
+         
+              <button
+                onClick={() => addCartI(item)}
+                className="bg-orange-500 text-white px-5 py-2 rounded-lg"
+              >
+                Add to Cart
+              </button>
+              
+            </div>
 
-          {/* Price + Button */}
-          <div className="mt-6 flex items-center justify-between">
-            <span className="text-xl font-bold text-gray-800">
-              ₹{item.price}
-            </span>
-
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold transition">
-              Add to Cart
-            </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
-
+  );
 }
 
 export default ShowItemBlock;

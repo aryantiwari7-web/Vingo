@@ -9,7 +9,7 @@ import GulabJamun from "./GulabJamun.jpg";
 import IceCream from "./IceCream.jpg";
 import Noodles from "./Noodles.jpg";
 import Waffle from "./Waffle.jpg";
-import Mainimage from "./mainimage.avif";
+import Mainimage from "./mainimage.png";
 
 const assets = {
   Biryani,
