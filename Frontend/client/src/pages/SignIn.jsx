@@ -1,5 +1,4 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { serverUrl } from "../App";
 import { useNavigate } from "react-router-dom";

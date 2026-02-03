@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import axios from 'axios'
 import { serverUrl } from "../App";
 import { AuthContext, AuthProvider } from "../hooks/Auth";
