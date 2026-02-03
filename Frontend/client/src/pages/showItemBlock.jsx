@@ -16,14 +16,23 @@ function ShowItemBlock() {
   const [loading, setLoading] = useState(true);
 
   // ✅ Add to cart function
-  const addCartI = (item) => {
-    if (!auth) {
-      navigate("/signin");
-      return;
-    }
-    console.log(item);
-    setCart([...cart,item]); // add item to cart
-  };
+  const addCartI = async (item) => {
+  if (!auth) {
+    navigate("/signin");
+    return;
+  }
+
+  const updatedCart = [...cart, item];
+
+  setCart(updatedCart);               
+  console.log(auth._id);          
+
+  await axios.post(`${serverUrl}/api/auth/updateCart`, {
+    userId: auth._id,
+    cartBox: updatedCart               
+  });
+};
+
 
   // ✅ Fetch item
   useEffect(() => {
@@ -77,6 +86,13 @@ function ShowItemBlock() {
                 className="bg-orange-500 text-white px-5 py-2 rounded-lg"
               >
                 Add to Cart
+              </button>
+              
+              <button
+                onClick={() => addCartI(item)}
+                className="bg-green-600 text-white px-5 py-2 rounded-lg hover:scale-105 transition"
+              >
+                Order
               </button>
               
             </div>

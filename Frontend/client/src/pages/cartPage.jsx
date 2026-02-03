@@ -46,9 +46,8 @@ function CartPage() {
               </div>
 
               {/* Quantity */}
-              <div className="flex flex-col items-center">
-                <span className="text-sm text-gray-500">Qty</span>
-                <span className="font-semibold">{item.quantity}</span>
+              <div className="items-center">
+                <button className="w-20 h-10 text-sm text-gray-100 bg-red-600 rounded-lg hover:scale-105 hover:shadow-lg">Remove</button>
               </div>
             </div>
           ))}

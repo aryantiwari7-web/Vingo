@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 import '../index.css';
 
 import { AuthContext } from "../hooks/Auth.jsx";
+import { CartContext } from "../hooks/Cart.jsx";
 
 function SignIn() {
   const [pass, setPass] = useState(true);
   const [password, setPassword] = useState("");
   const [email, setemail] = useState("");
   const { auth, setAuth } = useContext(AuthContext);
+  const {cart,setCart} = useContext(CartContext);
 
   const navigate = useNavigate();
 
@@ -31,7 +33,8 @@ function SignIn() {
         console.log("current back")
         //console.log("user",user.data);
         setAuth(user.data);
-
+        setCart(user.data.cartBox);
+        
         navigate('/');
 
       } catch (error) {

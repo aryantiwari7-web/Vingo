@@ -255,4 +255,55 @@ const allShop = async (req,res) => {
     return res.status(200).json(result);
 }
 
-module.exports = { signUP, signIn, signOut, ForgotPassword, sendOtp, VerifyOtp, ResetPass, item, addItem, showItem, allShop };
+const cartItem = async (req, res) => {
+  try {
+    const userId = req.params.itemId; 
+
+    const userData = await User.findById(userId);
+
+    if (!userData) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      cartbox: userData.cartbox
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const cartUpdate = async (req, res) => {
+  try {
+    const { userId, cartBox } = req.body;
+
+    if (!userId || !Array.isArray(cartBox)) {
+      return res.status(400).json({
+        message: "Invalid userId or cartBox"
+      });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: { cartBox: cartBox }
+      },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user.cartBox);
+  } catch (err) {
+    console.error("Cart replace failed:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+
+module.exports = { signUP, signIn, signOut, ForgotPassword, sendOtp, VerifyOtp, ResetPass, item, addItem, showItem, allShop, cartItem, cartUpdate };

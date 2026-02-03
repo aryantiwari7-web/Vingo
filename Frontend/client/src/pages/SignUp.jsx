@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import axios from 'axios'
 import { serverUrl } from "../App";
 import { AuthContext, AuthProvider } from "../hooks/Auth";
+import { CartContext } from "../hooks/Cart";
 
 function SignUp() {
   const [role, setRole] = useState("user");
@@ -16,6 +17,7 @@ function SignUp() {
   const [shopName, setShopName] = useState("");
   const [shopLocation, setShopLocation] = useState("");
   const {auth,setAuth}=useContext(AuthContext);
+  const {cart,setCart}=useContext(CartContext);
 
   const navigate = useNavigate();
 
@@ -31,7 +33,6 @@ function SignUp() {
         fullName,email,password,mobile,role,shopName,shopLocation
       },{withCredentials:true});
       console.log(result);
-      setAuth({fullName,email,password,mobile,role,shopName,shopLocation});
       navigate('/signin');
     } catch (error) {
       console.log(error);
