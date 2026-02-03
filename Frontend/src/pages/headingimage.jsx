@@ -7,7 +7,7 @@ function HeadingImage() {
       {/* Image */}
       <img
         src={assets.Mainimage}
-        alt="Heading image"
+        alt="HeadingImage"
         className="w-full h-[400px] object-cover rounded-3xl "
       />
 

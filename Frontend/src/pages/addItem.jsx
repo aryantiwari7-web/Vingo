@@ -11,8 +11,6 @@ function AddItem() {
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const { auth } = useContext(AuthContext);
-  const [shopName, setShopName] = useState(`${auth.shopName}`);
-  const [shopCity, setShopCity] = useState(`${auth.shopCity}`);
 
   const navigate = useNavigate();
 

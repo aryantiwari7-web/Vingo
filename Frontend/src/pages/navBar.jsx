@@ -60,20 +60,21 @@ const NavBar = () => {
         setLocation("Enable location 📍");
     };
 
-    useEffect(() => {
-        const fetchLocation = () => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    getLocation,
-                    notGetLocation
-                );
-            } else {
-                setLocation("Geolocation not supported");
-            }
-        };
+   useEffect(() => {
+    const fetchLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                getLocation,
+                notGetLocation
+            );
+        } else {
+            setLocation("Geolocation not supported");
+        }
+    };
 
-        fetchLocation();
-    }, []);
+    fetchLocation();
+}, [getLocation, notGetLocation, setLocation]);
+
 
     return (
         <div className="w-full bg-white/80 backdrop-blur-md shadow-md sticky top-0 z-50 ">
