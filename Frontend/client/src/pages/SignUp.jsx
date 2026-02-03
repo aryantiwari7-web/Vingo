@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from 'axios'
 import { serverUrl } from "../App";
-import { AuthContext, AuthProvider } from "../hooks/Auth";
-import { CartContext } from "../hooks/Cart";
 
 function SignUp() {
   const [role, setRole] = useState("user");
@@ -15,8 +13,6 @@ function SignUp() {
   const [password, setpassword] = useState("");
   const [shopName, setShopName] = useState("");
   const [shopLocation, setShopLocation] = useState("");
-  const {auth,setAuth}=useContext(AuthContext);
-  const {cart,setCart}=useContext(CartContext);
 
   const navigate = useNavigate();
 

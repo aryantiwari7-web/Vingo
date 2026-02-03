@@ -6,13 +6,14 @@ import '../index.css';
 
 import { AuthContext } from "../hooks/Auth.jsx";
 import { CartContext } from "../hooks/Cart.jsx";
+import { useContext, useState } from "react";
 
 function SignIn() {
   const [pass, setPass] = useState(true);
   const [password, setPassword] = useState("");
   const [email, setemail] = useState("");
-  const { auth, setAuth } = useContext(AuthContext);
-  const {cart,setCart} = useContext(CartContext);
+  const { setAuth } = useContext(AuthContext);
+  const { setCart} = useContext(CartContext);
 
   const navigate = useNavigate();
 
