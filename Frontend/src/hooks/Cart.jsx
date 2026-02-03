@@ -1,5 +1,4 @@
-import { createContext, useContext, useState } from "react";
-import { AuthContext } from "./Auth";
+import { createContext, useState } from "react";
 
 export const CartContext = createContext(null);
 

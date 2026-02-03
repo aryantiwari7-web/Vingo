@@ -14,27 +14,31 @@ import CustomerFeedback from './pages/customerFeedback.jsx';
 import { CartProvider } from './hooks/Cart.jsx';
 import CartPage from './pages/cartPage.jsx';
 
-export const serverUrl = "http://localhost:5000";
+/**
+ * Backend base URL
+ * - Local: http://localhost:5000
+ * - Production: Vercel env variable
+ */
+export const serverUrl =
+  process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
 
 function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/nav" element={<NavBar />} />
-        <Route path="/sld" element={<SlidingMenuBar />} />
-        <Route path="/cf" element={<CustomerFeedback />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/forgot-page" element={<ForgotPassword />} />
-        <Route path="/addItem" element={<AddItem />} />
-        <Route path="/cartPage" element={<CartPage />} />
-        <Route path="/item/:name" element={<ItemBox />} />
-        <Route path="/showItem/:itemId" element={<ShowItemBlock />} />
-      </Routes>
-      
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/nav" element={<NavBar />} />
+          <Route path="/sld" element={<SlidingMenuBar />} />
+          <Route path="/cf" element={<CustomerFeedback />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgot-page" element={<ForgotPassword />} />
+          <Route path="/addItem" element={<AddItem />} />
+          <Route path="/cartPage" element={<CartPage />} />
+          <Route path="/item/:name" element={<ItemBox />} />
+          <Route path="/showItem/:itemId" element={<ShowItemBlock />} />
+        </Routes>
       </CartProvider>
     </AuthProvider>
   );
