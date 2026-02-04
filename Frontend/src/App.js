@@ -15,7 +15,7 @@ import { CartProvider } from './hooks/Cart.jsx';
 import CartPage from './pages/cartPage.jsx';
 
 
-export const serverUrl =  "http://localhost:5000" || process.env.REACT_APP_SERVER_URL;
+export const serverUrl =   process.env.REACT_APP_SERVER_URL;
 
 
 function App() {
