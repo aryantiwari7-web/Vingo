@@ -1,45 +1,41 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-
+const express = require('express');
+const dotenv = require('dotenv');
 dotenv.config();
-
-const { connection } = require("./config/db.js");
-const authRoutes = require("./routes/auth.routes.js");
-const userRoutes = require("./routes/user.route.js"); // ✅ FIXED typo
+const cookieParser = require('cookie-parser');
+const { connection } = require('./config/db.js');
+const app1 = require('./routes/auth.routes.js');
+const app2 = require('./routes/user.rought.js');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-/* ---------- CORS ---------- */
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",
-      "https://vingo-zq2w.vercel.app" // ✅ removed trailing slash
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
 
-/* ---------- Middlewares ---------- */
+app.use(cors({
+  origin: ["http://localhost:3000",
+    "https://vingo-zq2w.vercel.app/"
+  ],
+  credentials: true
+}));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-/* ---------- Routes ---------- */
-app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes);
 
-/* ---------- Server ---------- */
+console.log("backend");
+app.use("/api/user",app2);
+app.use("/api/auth",app1);
+
+
+
+
 connection()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`✅ Server running on port ${PORT}`);
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`✅ Server running on port ${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error("❌ DB connection failed", err.message);
     });
-  })
-  .catch((err) => {
-    console.error("❌ DB connection failed:", err.message);
-  });
