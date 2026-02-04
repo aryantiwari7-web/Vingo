@@ -246,12 +246,13 @@ const addItem = async (req, res) => {
 
 const allShop = async (req,res) => {
     console.log("all shop enter");
-   const result = await User.find(
-  { shopName: { $ne: null }, shopCity: { $ne: null } },
-  { _id: 0, shopName: 1, shopCity: 1 }
-).lean();
-
-
+    const result = await User.find(
+        { shopName: { $ne: null }, shopCity: { $ne: null } },
+        { _id: 0, shopName: 1, shopCity: 1 }
+    ).lean();
+    
+    
+    console.log("all shop out");
     return res.status(200).json(result);
 }
 
