@@ -8,12 +8,13 @@ const app2 = require('./routes/user.rought.js');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT ;
 
 
 app.use(cors({
   origin: [
-    "https://vingo-beryl.vercel.app/"
+      process.env.FRONTEND_URL,
+      "http://localhost:3000"
   ],
   credentials: true
 }));
@@ -28,7 +29,7 @@ app.use("/api/user",app2);
 app.use("/api/auth",app1);
 
 app.get("/", (req, res) => {
-  res.send("PORT is working properly");
+  res.send("PORT is working properly good");
 });
 
 
