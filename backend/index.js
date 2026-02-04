@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors({
   origin: [
-    "https://foodify-tron.vercel.app/"
+      "http://localhost:3000",
+    "http://foodify-tron.vercel.app"
   ],
   credentials: true
 }));
@@ -27,6 +28,9 @@ console.log("backend");
 app.use("/api/user",app2);
 app.use("/api/auth",app1);
 
+app.get("/", (req, res) => {
+  res.send("PORT is working properly");
+});
 
 
 
