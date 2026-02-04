@@ -68,14 +68,13 @@ const signIn = async (req, res) => {
         }
 
         console.log("Pass in");
-        const token = await genToken(user._id);
-        console.log(user._id);
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: false,
-            sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        });
+  res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,        // REQUIRED on HTTPS (Vercel)
+  sameSite: "none",    // REQUIRED for cross-domain
+  maxAge: 7 * 24 * 60 * 60 * 1000
+});
+
 
         console.log("backend Signin go");
 
