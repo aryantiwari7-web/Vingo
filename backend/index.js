@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors({
   origin: [
-      "http://localhost:3000",
     "http://foodify-tron.vercel.app"
   ],
   credentials: true
