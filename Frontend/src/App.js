@@ -14,13 +14,9 @@ import CustomerFeedback from './pages/customerFeedback.jsx';
 import { CartProvider } from './hooks/Cart.jsx';
 import CartPage from './pages/cartPage.jsx';
 
-/**
- * Backend base URL
- * - Local: http://localhost:5000
- * - Production: Vercel env variable
- */
-export const serverUrl =
-  process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
+
+export const serverUrl = "http://localhost:5000" || process.env.REACT_APP_SERVER_URL;
+
 
 function App() {
   return (

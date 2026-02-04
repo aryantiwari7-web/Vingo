@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors({
   origin: ["http://localhost:3000",
-    "https://vingo-zq2w.vercel.app/"
+    "https://vingo-r87a.vercel.app/"
   ],
   credentials: true
 }));
