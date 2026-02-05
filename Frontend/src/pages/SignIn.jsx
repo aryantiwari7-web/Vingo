@@ -30,8 +30,8 @@ function SignIn() {
       try {
         console.log("current call")
         const user = await axios.get(`${serverUrl}/api/user/current`, { withCredentials: true })
-        console.log("current back")
-        //console.log("user",user.data);
+        console.log("current back");
+        
         setAuth(user.data);
         setCart(user.data.cartBox);
         

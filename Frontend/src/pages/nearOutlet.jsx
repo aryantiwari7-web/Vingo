@@ -16,8 +16,10 @@ function NearOutlet() {
   useEffect(() => {
     const fetchShops = async () => {
       try {
+        console.log("Ent");
         const res = await axios.post(`${serverUrl}/api/auth/allShop`);
-        setShops(res.data.slice(0, 4)); // max 4 shops
+        console.log(res.data);
+        setShops(res.data); // max 4 shops
       } catch (error) {
         console.error(error);
       }

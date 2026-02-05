@@ -13,9 +13,11 @@ import SlidingMenuBar from './pages/slidingMenuBar.jsx';
 import CustomerFeedback from './pages/customerFeedback.jsx';
 import { CartProvider } from './hooks/Cart.jsx';
 import CartPage from './pages/cartPage.jsx';
+import NearOutlet from './pages/nearOutlet.jsx';
 
 
-export const serverUrl =   process.env.REACT_APP_SERVER_URL;
+
+export const serverUrl =  process.env.REACT_APP_SERVER_URL ;
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
       <CartProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/nearOutlet" element={<NearOutlet />} />
           <Route path="/nav" element={<NavBar />} />
           <Route path="/sld" element={<SlidingMenuBar />} />
           <Route path="/cf" element={<CustomerFeedback />} />

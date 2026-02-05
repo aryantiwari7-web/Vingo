@@ -43,38 +43,40 @@ const signUP = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000,
             httpOnly: true
         });
-
+        
         return res.status(201).json(user);
-
+        
     } catch (error) {
         return res.status(500).json({ message: `SignUp error ${error.message}` });
     }
 };
 const signIn = async (req, res) => {
     try {
-        const { email, password } = req.body;
         console.log("backend Signin");
-
+        const { email, password } = req.body;
+        console.log("backend Signin 2");
+        
         const user = await User.findOne({ email });
         console.log(user);
         if (!user) {
             return res.status(401).json({ message: "Invalid email or password" });
         }
         console.log("User in");
-
+        
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(402).json({ message: "Invalid email or password" });
         }
-
+        
         console.log("Pass in");
-  res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,        // REQUIRED on HTTPS (Vercel)
-  sameSite: "none",    // REQUIRED for cross-domain
-  maxAge: 7 * 24 * 60 * 60 * 1000
-});
-
+        
+        const token = genToken(user._id);        
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
 
         console.log("backend Signin go");
 
@@ -243,64 +245,64 @@ const addItem = async (req, res) => {
     }
 };
 
-const allShop = async (req,res) => {
+const allShop = async (req, res) => {
     console.log("all shop enter");
     const result = await User.find(
         { shopName: { $ne: null }, shopCity: { $ne: null } },
         { _id: 0, shopName: 1, shopCity: 1 }
     ).lean();
-    
-    
+
+
     console.log("all shop out");
     return res.status(200).json(result);
 }
 
 const cartItem = async (req, res) => {
-  try {
-    const userId = req.params.itemId; 
+    try {
+        const userId = req.params.itemId;
 
-    const userData = await User.findById(userId);
+        const userData = await User.findById(userId);
 
-    if (!userData) {
-      return res.status(404).json({ message: "User not found" });
+        if (!userData) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({
+            cartbox: userData.cartbox
+        });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-
-    res.status(200).json({
-      cartbox: userData.cartbox
-    });
-
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
 };
 
 const cartUpdate = async (req, res) => {
-  try {
-    const { userId, cartBox } = req.body;
+    try {
+        const { userId, cartBox } = req.body;
 
-    if (!userId || !Array.isArray(cartBox)) {
-      return res.status(400).json({
-        message: "Invalid userId or cartBox"
-      });
+        if (!userId || !Array.isArray(cartBox)) {
+            return res.status(400).json({
+                message: "Invalid userId or cartBox"
+            });
+        }
+
+        const user = await User.findByIdAndUpdate(
+            userId,
+            {
+                $set: { cartBox: cartBox }
+            },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(user.cartBox);
+    } catch (err) {
+        console.error("Cart replace failed:", err);
+        res.status(500).json({ message: "Server error" });
     }
-
-    const user = await User.findByIdAndUpdate(
-      userId,
-      {
-        $set: { cartBox: cartBox }
-      },
-      { new: true }
-    );
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json(user.cartBox);
-  } catch (err) {
-    console.error("Cart replace failed:", err);
-    res.status(500).json({ message: "Server error" });
-  }
 };
 
 
