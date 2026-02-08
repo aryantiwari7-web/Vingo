@@ -14,24 +14,37 @@ function ShowItemBlock() {
 
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [cartAdd, setCartAdd] = useState("");
 
   // ✅ Add to cart function
   const addCartI = async (item) => {
-  if (!auth) {
-    navigate("/signin");
-    return;
-  }
+    setCartAdd("");
+    if (!auth) {
+      navigate("/signin");
+      return;
+    }
 
-  const updatedCart = [...cart, item];
+    const isAlreadyInCart = cart.some(
+      (cartItem) => cartItem._id === item._id
+    );
 
-  setCart(updatedCart);               
-  console.log(auth._id);          
+    // if exists, do nothing
+    if (isAlreadyInCart) {
+      setCartAdd("Item already in cart");
+      return;
+    }
 
-  await axios.post(`${serverUrl}/api/auth/updateCart`, {
-    userId: auth._id,
-    cartBox: updatedCart               
-  });
-};
+    const updatedCart = [...cart, item];
+
+    setCart(updatedCart);
+    console.log(auth._id);
+
+    await axios.post(`${serverUrl}/api/auth/updateCart`, {
+      userId: auth._id,
+      cartBox: updatedCart
+    });
+    setCartAdd("Item added");
+  };
 
 
   // ✅ Fetch item
@@ -80,21 +93,57 @@ function ShowItemBlock() {
             <div className="mt-6 flex justify-between items-center">
               <span className="text-xl font-bold">₹{item.price}</span>
 
-         
+
               <button
                 onClick={() => addCartI(item)}
                 className="bg-orange-500 text-white px-5 py-2 rounded-lg"
               >
                 Add to Cart
               </button>
-              
+
               <button
                 onClick={() => addCartI(item)}
                 className="bg-green-600 text-white px-5 py-2 rounded-lg hover:scale-105 transition"
               >
                 Order
               </button>
-              
+              {cartAdd === "Item added" && (
+                <div className="fixed top-5 right-5 z-50 flex items-center gap-3 
+                  bg-gradient-to-r from-emerald-500 to-green-600 
+                  text-white px-5 py-4 rounded-xl shadow-2xl
+                  animate-slide-in">
+
+                  {/* Icon */}
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-white/20">
+                    ✓
+                  </div>
+
+                  {/* Message */}
+                  <div className="text-sm font-medium">
+                    {cartAdd}
+                  </div>
+                </div>
+              )}
+
+              {cartAdd === "Item already in cart" && (
+                <div className="fixed top-5 right-5 z-50 flex items-center gap-3 
+                  bg-gradient-to-r from-red-500 to-red-600 
+                  text-white px-5 py-4 rounded-xl shadow-2xl
+                  animate-slide-in">
+
+                  {/* Icon */}
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-white/20">
+                    X
+                  </div>
+
+                  {/* Message */}
+                  <div className="text-sm font-medium">
+                    {cartAdd}
+                  </div>
+                </div>
+              )}
+
+
             </div>
 
           </div>

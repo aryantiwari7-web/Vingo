@@ -12,30 +12,35 @@ function ForgotPassword() {
   const [otp, setOtp] = useState("");
   const [NewPassword, setNewPassword] = useState("");
   const [CnfPassword, setCnfPassword] = useState("");
+  const [err,SetErr] = useState("");
 
   const otpsnd =async ()=>{
         try {
           const result=await axios.post(`${serverUrl}/api/auth/sendOtp`,{
             email
           },{withCredentials:true});
+          SetErr("");
           setState(2);
           console.log(result);
         } catch (error) {
           console.log(error);
+          SetErr("Email not exist");
         }
-  }
-  const otpVry =async ()=>{
+      }
+      const otpVry =async ()=>{
         try {
           const result=await axios.post(`${serverUrl}/api/auth/VeryOtp`,{
             email,otp
           },{withCredentials:true});
+          SetErr("");
           setState(3);
           console.log(result);
         } catch (error) {
           console.log(error);
+          SetErr("Wrong OTP");
         }
-  }
-  const SetPass =async ()=>{
+      }
+      const SetPass =async ()=>{
         try {
           if(NewPassword !== CnfPassword){
             console.log("Make noth the pass equal");
@@ -43,6 +48,7 @@ function ForgotPassword() {
           const result=await axios.post(`${serverUrl}/api/auth/ResetPass`,{
             email,NewPassword
           },{withCredentials:true});
+          SetErr("");
           navigate("/signin");
 
           console.log(result);
@@ -85,6 +91,10 @@ function ForgotPassword() {
         >
           Submit
         </button>
+        {
+          err && 
+            <p className="text-red-600">{err}</p>
+        }
       </div>
   </div>
     )}
@@ -110,6 +120,10 @@ function ForgotPassword() {
           <button className="w-full rounded-xl bg-orange-600 hover:bg-orange-700
                      focus:bg-orange-800 text-white font-bold py-2 transition" onClick={otpVry}
           >Verify</button>
+          {
+          err && 
+            <p className="text-red-600">{err}</p>
+        }
         </div>
       </div>
       )}

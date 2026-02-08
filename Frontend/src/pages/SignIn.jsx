@@ -14,6 +14,7 @@ function SignIn() {
   const [email, setemail] = useState("");
   const { setAuth } = useContext(AuthContext);
   const { setCart} = useContext(CartContext);
+  const [err,setErr]=useState("");
 
   const navigate = useNavigate();
 
@@ -39,9 +40,11 @@ function SignIn() {
 
       } catch (error) {
         console.log(error);
+        setErr(error);
       }
     } catch (error) {
       console.log(error);
+      setErr(error);
     }
   }
 
@@ -118,6 +121,12 @@ function SignIn() {
           >
             Submit
           </button>
+        </div>
+
+        <div>
+        {err && 
+          <p className="text-red-600 ">Wrong email or password</p>
+        }
         </div>
 
         <div className="text-center pt-4 border-t border-gray-200">

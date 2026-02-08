@@ -42,7 +42,6 @@ function SignUp() {
         Create Account
       </h2>
 
-      {/* Full Name */}
       <div>
         <label className="w-full text-sm font-medium text-orange-400 mb-1">
           Full Name
@@ -56,7 +55,6 @@ function SignUp() {
         />
       </div>
 
-      {/* Email */}
       <div>
         <label className="block text-sm font-medium text-orange-400 mb-1">
           Email
@@ -70,7 +68,6 @@ function SignUp() {
         />
       </div>
 
-      {/* Mobile */}
       <div>
         <label className="block text-sm font-medium text-orange-400 mb-1">
           Phone Number
@@ -84,7 +81,6 @@ function SignUp() {
         />
       </div>
 
-      {/* Password */}
       <div>
         <label className="block text-sm font-medium text-orange-400 mb-1">
           Password
@@ -106,7 +102,6 @@ function SignUp() {
         </div>
       </div>
 
-      {/* Role */}
       <div>
         <label className="block text-sm font-medium text-orange-400 mb-2">
           Role
@@ -128,7 +123,6 @@ function SignUp() {
         </div>
       </div>
 
-      {/* Owner fields */}
       {role === "owner" && (
         <>
           <div>
@@ -159,7 +153,6 @@ function SignUp() {
         </>
       )}
 
-      {/* Submit */}
       <button
         onClick={handleSignup}
         className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg font-semibold transition"
@@ -167,7 +160,6 @@ function SignUp() {
         Sign Up
       </button>
 
-      {/* Redirect */}
       <p className="text-center text-sm text-gray-600">
         Already have an account?{" "}
         <span

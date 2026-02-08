@@ -17,7 +17,7 @@ import NearOutlet from './pages/nearOutlet.jsx';
 
 
 
-export const serverUrl =  process.env.REACT_APP_SERVER_URL ;
+export const serverUrl =  "https://foodify-rudc.vercel.app" ;
 
 
 function App() {
